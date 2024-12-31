@@ -106,6 +106,28 @@ button:hover {
   box-shadow: 0 0 20px var(--accent-color);
 }
 
+/* Botones primarios deshabilitados */
+.btn-primary:disabled {
+  background-color: var(--neutral-color);
+  /* Fondo neutral */
+  color: #6c757d;
+  /* Texto gris */
+  border: 2px solid var(--neutral-color);
+  /* Borde neutral */
+  cursor: not-allowed;
+  /* Cursor de no permitido */
+  opacity: 0.65;
+  /* Transparencia para resaltar desactivación */
+}
+
+/* Desactivar el efecto hover si está deshabilitado */
+.btn-primary:disabled:hover {
+  background-color: var(--neutral-color);
+  color: #6c757d;
+  box-shadow: none;
+  /* Sin resplandor */
+}
+
 h2,
 h3 {
   font-size: 1.5rem;
