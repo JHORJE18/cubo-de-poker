@@ -1,68 +1,306 @@
+/* Variables de color para el estilo retro Pip-Boy */
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
+  --bg-color: #001a00;
+  --text-color: #00ff00;
+  --accent-color: #00cc00;
+  --danger-color: #ff3333;
+  --neutral-color: #004d00;
+  --font-pixel: 'Press Start 2P', monospace;
 }
 
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  font-family: var(--font-pixel), monospace;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  overflow-x: hidden;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+/* Estilo general */
+.main-title {
+  text-align: center;
+  font-size: 2rem;
+  margin: 10px 0;
+}
+
+/* Estilo de los botones generales */
+button {
+  font-family: var(--font-pixel), monospace;
+  font-size: 1rem;
+  padding: 10px 20px;
+  border: 2px solid var(--text-color);
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  text-transform: uppercase;
+  text-align: center;
+  border-radius: 0;
+  /* Sin bordes redondeados para un look retro */
+  box-shadow: 0 0 10px var(--accent-color);
+  /* Resplandor */
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+/* Efecto hover para los botones */
+button:hover {
+  background-color: var(--text-color);
+  color: var(--bg-color);
+  border-color: var(--accent-color);
+  box-shadow: 0 0 20px var(--accent-color);
+  /* Aumenta el resplandor */
+}
+
+/* Botones de peligro */
+.btn-danger {
+  border-color: var(--danger-color);
+  color: var(--danger-color);
+  box-shadow: 0 0 10px var(--danger-color);
+}
+
+.btn-danger:hover {
+  background-color: var(--danger-color);
+  color: var(--bg-color);
+  box-shadow: 0 0 20px var(--danger-color);
+}
+
+.table-actions {
+  display: flex;
+  justify-content: center;
+  /* Centra el botón horizontalmente */
+  margin-top: 30px;
+  /* Separa el botón de los elementos superiores */
+}
+
+.btn-destroy {
+  margin: 0 auto;
+  /* Centra el botón */
+  padding: 15px 30px;
+  /* Ajusta el tamaño del botón */
+  font-size: 1.2rem;
+  /* Hace el texto más grande */
+  border: 2px solid var(--danger-color);
+  background-color: var(--bg-color);
+  color: var(--danger-color);
+  box-shadow: 0 0 15px var(--danger-color);
+  /* Resplandor más notable */
+  transition: all 0.3s ease-in-out;
+}
+
+.btn-destroy:hover {
+  background-color: var(--danger-color);
+  color: var(--bg-color);
+  box-shadow: 0 0 25px var(--danger-color);
+  /* Aumenta el resplandor */
+}
+
+/* Botones primarios */
+.btn-primary {
+  border-color: var(--accent-color);
+  color: var(--accent-color);
+  box-shadow: 0 0 10px var(--accent-color);
+}
+
+.btn-primary:hover {
+  background-color: var(--accent-color);
+  color: var(--bg-color);
+  box-shadow: 0 0 20px var(--accent-color);
+}
+
+h2,
+h3 {
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+/* Menú superior */
+.menu {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: var(--neutral-color);
+}
+
+/* Contenedor de las rondas */
+.tiradas-container {
+  display: flex;
+  justify-content: space-between;
+  /* Distribuir el espacio entre las rondas */
+  gap: 20px;
+  /* Espaciado entre las columnas */
+}
+
+/* Cada ronda ocupa la mitad del contenedor */
+.ronda {
+  flex: 1;
+  padding: 10px;
+  border-radius: 5px;
+  /* Bordes redondeados */
+}
+
+/* Alinear etiquetas e inputs */
+.inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  /* Espaciado entre cada fila de inputs */
+}
+
+.inputs label {
+  display: inline-block;
+  width: 100%;
+}
+
+.inputs input {
+  width: 100%;
+  padding: 5px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.inputs input:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+/* Contenido principal */
+.container {
+  max-width: 900px;
+  margin: auto;
+  padding: 20px;
+}
+
+.player-name {
+  font-size: 1.5rem;
+  text-align: center;
+  padding: 10px;
+  background-color: var(--accent-color);
+  border: 2px solid var(--neutral-color);
+}
+
+/* Contenedor de selección */
+.player-controls {
+  margin-bottom: 10px;
+  /* Espacio entre el selector y los botones */
+}
+
+/* Selector de jugador */
+#player-select {
+  background-color: #1c1c1c;
+  /* Fondo oscuro */
+  color: #00ff00;
+  /* Texto verde brillante */
+  font-family: 'Courier New', monospace;
+  /* Fuente retro */
+  font-size: 1.2rem;
+  /* Ajusta el tamaño del texto */
+  padding: 10px;
+  /* Espaciado interno */
+  border: 2px solid #00ff00;
+  /* Borde verde brillante */
+  border-radius: 5px;
+  /* Bordes redondeados */
+  width: 100%;
+  /* Ocupa todo el ancho disponible */
+  text-align: center;
+  /* Centra el texto del selector */
+  appearance: none;
+  /* Quita el estilo por defecto del navegador */
+  outline: none;
+  /* Quita el contorno al enfocar */
+}
+
+/* Ajuste adicional para centrar el texto en algunos navegadores */
+#player-select option {
+  text-align: center;
+}
+
+/* Botones debajo del selector */
+.player-buttons {
+  display: flex;
+  justify-content: center;
+  /* Centra los botones horizontalmente */
+  gap: 15px;
+  /* Espaciado entre los botones */
 }
 
 button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
+  padding: 10px 20px;
+  font-size: 1rem;
+  border-radius: 5px;
   cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+.inputs {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.inputs input {
+  background-color: var(--bg-color);
+  border: 1px solid var(--neutral-color);
+  color: var(--text-color);
+  font-size: 1rem;
+  text-align: center;
+  padding: 10px;
+}
+
+/* Tabla */
+/* Tabla */
+table {
+  width: 100%;
+  margin-top: 20px;
+  border-collapse: collapse;
+  /* Quita los bordes dobles */
+  border: 2px solid var(--neutral-color);
+  /* Bordes principales */
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: var(--font-pixel);
+}
+
+/* Encabezado de la tabla */
+th {
+  background-color: var(--neutral-color);
+  color: var(--text-color);
+  padding: 10px;
+  text-align: center;
+  text-transform: uppercase;
+  border: 2px solid var(--accent-color);
+}
+
+/* Celdas de la tabla */
+td {
+  padding: 10px;
+  text-align: center;
+  border: 1px solid var(--neutral-color);
+  font-size: 1rem;
+}
+
+/* Resalto de filas al pasar el cursor */
+tbody tr:hover {
+  background-color: var(--accent-color);
+  /* Fondo verde brillante */
+  color: var(--bg-color);
+  /* Texto oscuro */
+  transform: scale(1.02);
+  /* Amplía ligeramente la fila */
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+/* Bordes de la tabla */
+table th,
+table td {
+  border: 1px solid var(--accent-color);
+}
+
+/* Esquinas redondeadas opcionales */
+table {
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 0 10px var(--accent-color);
+  /* Resplandor general */
 }
