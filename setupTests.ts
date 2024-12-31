@@ -1,0 +1,1 @@
+import '@testing-library/jest-dom'; // Extiende expect con matchers útiles como toBeInTheDocument
