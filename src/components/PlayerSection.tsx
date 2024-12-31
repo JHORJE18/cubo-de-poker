@@ -18,6 +18,17 @@ const PlayerSection: React.FC<PlayerSectionProps> = ({
 }) => {
     const [newPlayer, setNewPlayer] = useState("");
 
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === "Enter" && newPlayer.trim()) {
+            addPlayer(newPlayer);
+            const player = jugadores.find((p) => p.name === newPlayer.trim());
+            if (player) {
+                setCurrentPlayer(player);
+            }
+            setNewPlayer("");
+        }
+    };
+
     return (
         <section>
             <h2>Gestión de Jugadores</h2>
@@ -46,12 +57,17 @@ const PlayerSection: React.FC<PlayerSectionProps> = ({
                     type="text"
                     value={newPlayer}
                     onChange={(e) => setNewPlayer(e.target.value)}
+                    onKeyDown={handleKeyDown} // Detectar Enter
                     placeholder="Nuevo jugador"
                 />
                 <button
                     className="btn-primary"
                     onClick={() => {
                         addPlayer(newPlayer);
+                        const player = jugadores.find((p) => p.name === newPlayer.trim());
+                        if (player) {
+                            setCurrentPlayer(player);
+                        }
                         setNewPlayer("");
                     }}
                     disabled={!newPlayer.trim()} // Desactiva el botón si el input está vacío

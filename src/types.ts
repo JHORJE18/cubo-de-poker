@@ -6,16 +6,15 @@ export class Tirada {
     rojas: number;
     negras: number;
 
-    constructor(as = 0, k = 0, q = 0, j = 0, rojas = 0, negras = 0) {
-        this.as = as;
-        this.k = k;
-        this.q = q;
-        this.j = j;
-        this.rojas = rojas;
-        this.negras = negras;
+    constructor(data?: Partial<Tirada>) {
+        this.as = data?.as || 0;
+        this.k = data?.k || 0;
+        this.q = data?.q || 0;
+        this.j = data?.j || 0;
+        this.rojas = data?.rojas || 0;
+        this.negras = data?.negras || 0;
     }
 
-    // Calcula el puntaje total con los multiplicadores
     getTotal(): number {
         return (
             this.as * 6 +
@@ -30,17 +29,15 @@ export class Tirada {
 
 export class Jugador {
     name: string;
-    round1: Tirada;
-    round2: Tirada;
+    tiradas: Tirada[]; // Un array para almacenar múltiples tiradas
 
-    constructor(name: string) {
+    constructor(name: string, tiradas?: Tirada[]) {
         this.name = name;
-        this.round1 = new Tirada();
-        this.round2 = new Tirada();
+        this.tiradas = tiradas || [new Tirada(), new Tirada()]; // Inicializa con una tirada vacía
     }
 
-    // Calcula el total de todas las rondas
+    // Calcula el total sumando todas las tiradas
     getTotal(): number {
-        return this.round1.getTotal() + this.round2.getTotal();
+        return this.tiradas.reduce((acc, tirada) => acc + tirada.getTotal(), 0);
     }
 }

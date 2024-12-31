@@ -1,63 +1,115 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PlayerSection from "./components/PlayerSection";
 import TiradasSection from "./components/TiradasSection";
 import RankingSection from "./components/RankingSection";
 import { Jugador, Tirada } from "./types";
 import "./index.css";
+import SplashScreen from "./components/SplashScreen";
 
 const App: React.FC = () => {
+  const [isLoading, setIsLoading] = useState(true);
   const [jugadores, setJugadores] = useState<Jugador[]>([]);
   const [currentPlayer, setCurrentPlayer] = useState<Jugador | null>(null);
 
+  useEffect(() => {
+    // Simula una carga inicial
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 2500); // Cambiar el tiempo según sea necesario
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  // Añadir un nuevo jugador
   const addPlayer = (name: string) => {
-    // Normalizar el nombre
     const normalizedName = name.trim().charAt(0).toUpperCase() + name.trim().slice(1).toLowerCase();
-
-    // Validar si el nombre está vacío
-    if (!normalizedName) {
-      alert("El nombre del jugador no puede estar vacío.");
-      return;
-    }
-
-    // Validar si el nombre ya existe (case-insensitive)
-    if (jugadores.some((player) => player.name.toLowerCase() === normalizedName.toLowerCase())) {
+    if (!jugadores.find((player) => player.name.toLowerCase() === normalizedName.toLowerCase())) {
+      setJugadores([...jugadores, new Jugador(normalizedName)]);
+      currentPlayer === null && setCurrentPlayer(new Jugador(normalizedName));
+    } else {
       alert("Ya existe un jugador con ese nombre.");
-      return;
     }
-
-    // Validar la longitud del nombre
-    if (normalizedName.length < 2 || normalizedName.length > 20) {
-      alert("El nombre del jugador debe tener entre 2 y 20 caracteres.");
-      return;
-    }
-
-    // Agregar el jugador si pasa todas las validaciones
-    setJugadores([...jugadores, new Jugador(normalizedName)]);
   };
 
+  // Eliminar un jugador
   const removePlayer = (name: string) => {
-    setJugadores(jugadores.filter((player) => player.name !== name));
-    if (currentPlayer?.name === name) {
-      setCurrentPlayer(null);
+    const player = jugadores.find((player) => player.name === name);
+
+    if (player) {
+      // Verifica si alguna tirada tiene valores diferentes de 0
+      const hasNonZeroScores = player.tiradas.some((tirada) => {
+        return (
+          tirada.as > 0 ||
+          tirada.k > 0 ||
+          tirada.q > 0 ||
+          tirada.j > 0 ||
+          tirada.rojas > 0 ||
+          tirada.negras > 0
+        );
+      });
+
+      // Si hay valores diferentes de 0, solicita confirmación
+      if (hasNonZeroScores) {
+        const confirmDelete = window.confirm(
+          `El jugador "${name}" tiene valores registrados en sus tiradas. ¿Estás seguro de que deseas eliminarlo?`
+        );
+        if (!confirmDelete) {
+          return; // Cancela la eliminación si el usuario no confirma
+        }
+      }
+
+      // Elimina al jugador
+      setJugadores(jugadores.filter((player) => player.name !== name));
+
+      // Si el jugador actual es el eliminado, resetea el jugador actual
+      if (currentPlayer?.name === name) {
+        setCurrentPlayer(null);
+      }
     }
   };
 
-  const updateScore = (playerName: string, round: 1 | 2, value: number) => {
+  const updateScore = (playerName: string, index: number, field: keyof Tirada, value: number) => {
     setJugadores((prevJugadores) =>
       prevJugadores.map((player) => {
         if (player.name === playerName) {
-          if (round === 1) player.round1 = new Tirada(value);
-          if (round === 2) player.round2 = new Tirada(value);
+          const updatedTiradas = [...player.tiradas];
+
+          // Si la tirada ya existe, actualízala
+          if (updatedTiradas[index]) {
+            updatedTiradas[index] = new Tirada({
+              ...updatedTiradas[index],
+              [field]: value,
+            });
+          }
+
+          return new Jugador(player.name, updatedTiradas);
         }
         return player;
       })
     );
+
+    // Actualiza el jugador actual si corresponde
+    if (currentPlayer?.name === playerName) {
+      setCurrentPlayer((prev) => {
+        if (!prev) return null;
+        const updatedTiradas = [...prev.tiradas];
+        updatedTiradas[index] = new Tirada({
+          ...updatedTiradas[index],
+          [field]: value,
+        });
+        return new Jugador(prev.name, updatedTiradas);
+      });
+    }
   };
+
+  if (isLoading) {
+    return <SplashScreen />;
+  }
 
   return (
     <div className="container">
-      <header>
-        <h1 className="main-title">Cubo de Poker</h1>
+      <header className="app-header">
+        <h1 className="main-title">Cubo de Poker 🎲</h1>
       </header>
       <PlayerSection
         jugadores={jugadores}
@@ -70,7 +122,11 @@ const App: React.FC = () => {
         currentPlayer={currentPlayer}
         updateScore={updateScore}
       />
-      <RankingSection jugadores={jugadores} />
+      <RankingSection
+        jugadores={jugadores}
+        setCurrentPlayer={setCurrentPlayer}
+        currentPlayer={currentPlayer}
+      />
     </div>
   );
 };

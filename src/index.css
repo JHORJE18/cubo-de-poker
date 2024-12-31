@@ -10,6 +10,7 @@
 
 body {
   margin: 0;
+  padding: 0;
   font-family: var(--font-pixel), monospace;
   background-color: var(--bg-color);
   color: var(--text-color);
@@ -21,6 +22,80 @@ body {
   text-align: center;
   font-size: 2rem;
   margin: 10px 0;
+}
+
+/* Cabecera con fondo */
+.app-header {
+  width: 100%;
+  margin: 0;
+  padding: 20px 0;
+  background-color: var(--bg-color);
+  text-align: center;
+  position: relative;
+}
+
+/* Título principal con efecto neón */
+.main-title {
+  font-size: 3rem;
+  color: var(--text-color);
+  text-shadow:
+    0 0 5px var(--accent-color),
+    0 0 10px var(--accent-color),
+    0 0 20px var(--accent-color),
+    0 0 40px var(--accent-color),
+    0 0 80px var(--accent-color);
+  animation: neonPulse 1.5s infinite ease-in-out;
+  font-family: var(--font-pixel);
+  margin: 0;
+}
+
+/* Animación de pulso */
+@keyframes neonPulse {
+
+  0%,
+  100% {
+    text-shadow:
+      0 0 5px var(--accent-color),
+      0 0 10px var(--accent-color),
+      0 0 20px var(--accent-color),
+      0 0 40px var(--accent-color),
+      0 0 80px var(--accent-color);
+  }
+
+  50% {
+    text-shadow:
+      0 0 10px var(--accent-color),
+      0 0 20px var(--accent-color),
+      0 0 40px var(--accent-color),
+      0 0 60px var(--accent-color),
+      0 0 100px var(--accent-color);
+  }
+}
+
+/* Efecto de Neón */
+.neon-header {
+  text-shadow: 0 0 5px var(--text-color), 0 0 10px var(--text-color),
+    0 0 20px var(--accent-color), 0 0 30px var(--accent-color),
+    0 0 40px var(--accent-color), 0 0 50px var(--accent-color);
+}
+
+.neon-header .main-title {
+  animation: glow 2s infinite ease-in-out;
+}
+
+@keyframes glow {
+
+  0%,
+  100% {
+    text-shadow: 0 0 5px var(--text-color), 0 0 10px var(--text-color),
+      0 0 20px var(--accent-color), 0 0 30px var(--accent-color),
+      0 0 40px var(--accent-color), 0 0 50px var(--accent-color);
+  }
+
+  50% {
+    text-shadow: 0 0 10px var(--accent-color), 0 0 20px var(--accent-color),
+      0 0 30px var(--accent-color), 0 0 40px var(--accent-color);
+  }
 }
 
 /* Estilo de los botones generales */
@@ -145,11 +220,66 @@ h3 {
 
 /* Contenedor de las rondas */
 .tiradas-container {
-  display: flex;
-  justify-content: space-between;
-  /* Distribuir el espacio entre las rondas */
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   gap: 20px;
-  /* Espaciado entre las columnas */
+  /* Espaciado entre columnas */
+  align-items: center;
+}
+
+/* Cada ronda ocupa una columna */
+.ronda {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  /* Espaciado entre filas de inputs */
+  padding: 10px;
+  border: 1px solid var(--neutral-color);
+  border-radius: 5px;
+  background-color: var(--bg-color);
+}
+
+/* Inputs pequeños */
+.inputs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  /* Tres columnas para los campos */
+  gap: 5px;
+}
+
+.inputs label {
+  font-size: 0.8rem;
+  text-align: center;
+  color: var(--text-color);
+}
+
+.inputs input {
+  width: 100%;
+  font-size: 0.9rem;
+  padding: 5px;
+  text-align: center;
+  border: 1px solid var(--neutral-color);
+  border-radius: 5px;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+.inputs input:focus {
+  border-color: var(--accent-color);
+  outline: none;
+  box-shadow: 0 0 5px var(--accent-color);
+}
+
+/* Estilo para pantallas pequeñas */
+@media (max-width: 768px) {
+  .tiradas-container {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .inputs {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 /* Cada ronda ocupa la mitad del contenedor */
@@ -160,30 +290,162 @@ h3 {
   /* Bordes redondeados */
 }
 
-/* Alinear etiquetas e inputs */
+/* Contenedor del input y botones */
+.player-buttons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  /* Espaciado entre input y botones */
+  margin-top: 10px;
+}
+
+/* Input ocupa el ancho disponible */
+.player-buttons input {
+  flex: 1;
+  padding: 10px;
+  font-size: 1rem;
+  border: 2px solid var(--neutral-color);
+  border-radius: 5px;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  outline: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Efecto al enfocar */
+.player-buttons input:focus {
+  border-color: var(--accent-color);
+  box-shadow: 0 0 5px var(--accent-color);
+}
+
+/* Botones */
+.player-buttons .btn-primary,
+.player-buttons .btn-danger {
+  padding: 10px 20px;
+  font-size: 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  border: none;
+  color: white;
+  transition: background-color 0.3s ease;
+}
+
+/* Botón primario */
+.player-buttons .btn-primary {
+  background-color: var(--accent-color);
+}
+
+.player-buttons .btn-primary:hover {
+  background-color: var(--accent-color-hover);
+}
+
+/* Botón eliminar */
+.player-buttons .btn-danger {
+  background-color: var(--danger-color);
+}
+
+.player-buttons .btn-danger:hover {
+  background-color: var(--danger-color-hover);
+}
+
+/* Diseño responsive para móviles */
+@media (max-width: 768px) {
+  .player-buttons {
+    flex-direction: column;
+    /* Los botones se colocan debajo del input */
+    gap: 15px;
+    /* Espaciado entre elementos */
+  }
+
+  .player-buttons input {
+    width: 100%;
+    /* Ocupa todo el ancho disponible */
+  }
+
+  .player-buttons .btn-primary,
+  .player-buttons .btn-danger {
+    width: 100%;
+    /* Botones ocupan todo el ancho */
+  }
+}
+
+/* Estilo del input */
+.player-buttons input {
+  flex: 1;
+  /* Ocupa todo el ancho disponible */
+  padding: 10px;
+  /* Espaciado interno */
+  font-size: 1rem;
+  /* Tamaño del texto */
+  border: 2px solid var(--neutral-color);
+  /* Borde con color neutro */
+  border-radius: 5px;
+  /* Bordes redondeados */
+  background-color: var(--bg-color);
+  /* Fondo oscuro */
+  color: var(--text-color);
+  /* Texto del color principal */
+  outline: none;
+  /* Quita el borde azul al enfocar */
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Efecto al enfocar */
+.player-buttons input:focus {
+  border-color: var(--accent-color);
+  /* Color de borde al enfocar */
+  box-shadow: 0 0 5px var(--accent-color);
+  /* Resplandor */
+}
+
+/* Contenedor para inputs y labels */
 .inputs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  /* Tres columnas por fila */
+  gap: 15px;
+  /* Espaciado entre columnas y filas */
+}
+
+/* Alinear el label encima del input */
+.inputs label {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  /* Espaciado entre cada fila de inputs */
+  /* Coloca el label encima del input */
+  font-size: 0.8rem;
+  /* Tamaño de texto más pequeño */
+  text-align: center;
+  /* Centra el texto del label */
+  color: var(--text-color);
+  gap: 5px;
+  /* Espaciado entre label e input */
 }
 
-.inputs label {
-  display: inline-block;
-  width: 100%;
-}
-
+/* Estilo de los inputs */
 .inputs input {
   width: 100%;
-  padding: 5px;
-  border: 1px solid #ddd;
+  height: 50px;
+  /* Mantiene el tamaño cuadrado */
+  font-size: 1rem;
+  /* Tamaño del texto */
+  text-align: center;
+  /* Centra el texto en el input */
+  border: 1px solid var(--neutral-color);
   border-radius: 5px;
+  /* Opcional: Bordes redondeados */
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  padding: 0;
+  /* Sin relleno interno para mantener el tamaño cuadrado */
+  box-sizing: border-box;
+  /* Asegura que el borde esté incluido en el tamaño */
 }
 
+/* Efecto al enfocar */
 .inputs input:focus {
-  border-color: #007bff;
+  border-color: var(--accent-color);
+  box-shadow: 0 0 5px var(--accent-color);
   outline: none;
-  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
 
 /* Contenido principal */
@@ -270,14 +532,11 @@ button {
 }
 
 /* Tabla */
-/* Tabla */
 table {
   width: 100%;
   margin-top: 20px;
   border-collapse: collapse;
-  /* Quita los bordes dobles */
   border: 2px solid var(--neutral-color);
-  /* Bordes principales */
   background-color: var(--bg-color);
   color: var(--text-color);
   font-family: var(--font-pixel);
@@ -291,6 +550,7 @@ th {
   text-align: center;
   text-transform: uppercase;
   border: 2px solid var(--accent-color);
+  font-size: 0.9rem;
 }
 
 /* Celdas de la tabla */
@@ -304,13 +564,30 @@ td {
 /* Resalto de filas al pasar el cursor */
 tbody tr:hover {
   background-color: var(--accent-color);
-  /* Fondo verde brillante */
   color: var(--bg-color);
-  /* Texto oscuro */
   transform: scale(1.02);
-  /* Amplía ligeramente la fila */
   transition: all 0.2s ease-in-out;
   cursor: pointer;
+}
+
+/* Fila seleccionada */
+.selected-row {
+  background-color: var(--accent-color);
+  color: var(--bg-color);
+  box-shadow: 0 0 10px var(--accent-color);
+  transition: all 0.3s ease-in-out;
+}
+
+/* Responsive ajustes */
+@media (max-width: 768px) {
+
+  th:nth-child(3),
+  td:nth-child(3),
+  th:nth-child(4),
+  td:nth-child(4) {
+    display: none;
+    /* Oculta las rondas en móviles */
+  }
 }
 
 /* Bordes de la tabla */
