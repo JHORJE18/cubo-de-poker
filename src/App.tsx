@@ -11,11 +11,23 @@ const App: React.FC = () => {
   const [jugadores, setJugadores] = useState<Jugador[]>([]);
   const [currentPlayer, setCurrentPlayer] = useState<Jugador | null>(null);
 
+  // Recuperar los jugadores desde localStorage
   useEffect(() => {
-    // Simula una carga inicial
+    const savedData = localStorage.getItem("cuboDePokerPartida");
+    if (savedData) {
+      const parsedData: Jugador[] = JSON.parse(savedData).map((player: Jugador) => {
+        return new Jugador(
+          player.name,
+          player.tiradas.map((tirada) => new Tirada(tirada))
+        );
+      });
+      setJugadores(parsedData);
+    }
+
+    // Simula un SplashScreen
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 2500); // Cambiar el tiempo según sea necesario
+    }, 1500);
 
     return () => clearTimeout(timer);
   }, []);
@@ -69,24 +81,26 @@ const App: React.FC = () => {
   };
 
   const updateScore = (playerName: string, index: number, field: keyof Tirada, value: number) => {
-    setJugadores((prevJugadores) =>
-      prevJugadores.map((player) => {
-        if (player.name === playerName) {
-          const updatedTiradas = [...player.tiradas];
+    const updatedJugadores = jugadores.map((player) => {
+      if (player.name === playerName) {
+        const updatedTiradas = [...player.tiradas];
 
-          // Si la tirada ya existe, actualízala
-          if (updatedTiradas[index]) {
-            updatedTiradas[index] = new Tirada({
-              ...updatedTiradas[index],
-              [field]: value,
-            });
-          }
-
-          return new Jugador(player.name, updatedTiradas);
+        // Si la tirada ya existe, actualízala
+        if (updatedTiradas[index]) {
+          updatedTiradas[index] = new Tirada({
+            ...updatedTiradas[index],
+            [field]: value,
+          });
         }
-        return player;
-      })
-    );
+
+        return new Jugador(player.name, updatedTiradas);
+      }
+      return player;
+    });
+
+    setJugadores(updatedJugadores);
+    // Guardar los jugadores actualizados en localStorage
+    localStorage.setItem("cuboDePokerPartida", JSON.stringify(updatedJugadores));
 
     // Actualiza el jugador actual si corresponde
     if (currentPlayer?.name === playerName) {
@@ -127,6 +141,21 @@ const App: React.FC = () => {
         setCurrentPlayer={setCurrentPlayer}
         currentPlayer={currentPlayer}
       />
+      <div className="btn-container">
+        {jugadores.length > 0 && (
+          <button
+            className="btn-nuclear"
+            onClick={() => {
+              if (window.confirm("¡Advertencia! Esto eliminará todos los datos. ¿Deseas continuar?")) {
+                localStorage.removeItem("cuboDePokerPartida");
+                setJugadores([]);
+                setCurrentPlayer(null);
+              }
+            }}>
+            Destruir partida
+          </button>
+        )}
+      </div>
     </div>
   );
 };

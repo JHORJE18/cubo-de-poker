@@ -79,6 +79,7 @@ const PlayerSection: React.FC<PlayerSectionProps> = ({
                     onClick={() => {
                         if (currentPlayer) removePlayer(currentPlayer.name);
                     }}
+                    disabled={jugadores.length === 0} // Deshabilita si no hay jugadores
                 >
                     Eliminar jugador
                 </button>

@@ -182,7 +182,8 @@ button:hover {
 }
 
 /* Botones primarios deshabilitados */
-.btn-primary:disabled {
+.btn-primary:disabled,
+.btn-danger:disabled {
   background-color: var(--neutral-color);
   /* Fondo neutral */
   color: #6c757d;
@@ -196,11 +197,72 @@ button:hover {
 }
 
 /* Desactivar el efecto hover si está deshabilitado */
-.btn-primary:disabled:hover {
+.btn-primary:disabled:hover,
+btn-danger:disabled:hover {
   background-color: var(--neutral-color);
   color: #6c757d;
   box-shadow: none;
   /* Sin resplandor */
+}
+
+/* Contenedor del botón nuclear */
+.btn-container {
+  margin-top: 20px;
+  text-align: center;
+  /* Centra el botón debajo de la tabla */
+}
+
+/* Estilo del botón nuclear */
+.btn-nuclear {
+  font-family: var(--font-pixel), monospace;
+  font-size: 1rem;
+  padding: 15px 30px;
+  color: var(--danger-color);
+  background-color: var(--bg-color);
+  border: 2px solid var(--danger-color);
+  border-radius: 10px;
+  text-transform: uppercase;
+  text-align: center;
+  box-shadow: 0 0 10px var(--danger-color);
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Hover y efecto de activación */
+.btn-nuclear:hover {
+  color: var(--bg-color);
+  background-color: var(--danger-color);
+  box-shadow: 0 0 20px var(--danger-color-hover), 0 0 40px var(--danger-color-hover);
+  transform: scale(1.1);
+  /* Efecto de agrandamiento */
+}
+
+/* Animación de vibración */
+.btn-nuclear:active {
+  animation: shake 0.2s ease-in-out 2;
+}
+
+/* Efecto de vibración */
+@keyframes shake {
+  0% {
+    transform: translateX(0);
+  }
+
+  25% {
+    transform: translateX(-5px);
+  }
+
+  50% {
+    transform: translateX(5px);
+  }
+
+  75% {
+    transform: translateX(-5px);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
 }
 
 h2,
