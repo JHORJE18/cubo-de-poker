@@ -1,6 +1,6 @@
 import { render, screen, within } from '@testing-library/react';
-import RankingSection from '../src/components/RankingSection';
-import { Jugador, Tirada } from '../src/types';
+import RankingSection from '../components/RankingSection';
+import { Jugador, Tirada } from '../types';
 
 describe('RankingSection Component', () => {
     const mockPlayers = [

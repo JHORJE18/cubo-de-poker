@@ -1,6 +1,6 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import App from '../src/App';
+import App from '../App';
 
 describe('App Component', () => {
     it('renders the main title after SplashScreen', async () => {
@@ -8,7 +8,7 @@ describe('App Component', () => {
 
         // Esperar a que el SplashScreen desaparezca
         await waitFor(() => {
-            expect(screen.queryByText(/🎲/i)).not.toBeInTheDocument();
+            expect(screen.queryByText(/🎲/)).not.toBeInTheDocument();
         });
 
         // Verificar que el título principal esté disponible
