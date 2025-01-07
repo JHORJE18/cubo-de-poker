@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 import PlayerSection from "../components/PlayerSection";
 import { vi } from "vitest";
 
@@ -40,9 +40,7 @@ describe("PlayerSection", () => {
         const addButton = screen.getByRole("button", { name: /añadir jugador/i });
 
         // Simula escribir en el input
-        input.value = "Jugador 1";
-        screen.getByPlaceholderText(/Nuevo jugador/i).dispatchEvent(new Event("input", { bubbles: true }));
-
+        fireEvent.change(input, { target: { value: "Jugador 1" } });
         // Verifica que el botón se habilite
         expect(addButton).not.toBeDisabled();
 

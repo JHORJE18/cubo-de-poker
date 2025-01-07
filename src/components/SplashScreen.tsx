@@ -3,9 +3,9 @@ import "./SplashScreen.css";
 
 const SplashScreen: React.FC = () => {
     return (
-        <div className="splash-screen">
+        <div className="splash-screen" role="presentation">
             <div className="splash-content">
-                <span className="splash-emoji">🎲</span>
+                <span className="splash-emoji" data-testid="splash-emoji">🎲</span>
             </div>
         </div>
     );
