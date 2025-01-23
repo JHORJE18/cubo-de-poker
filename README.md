@@ -1,50 +1,66 @@
-# React + TypeScript + Vite
+# Cubo de Poker 🎲
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Descripción
+Cubo de Poker es una aplicación web desarrollada con React y TypeScript que permite gestionar partidas de poker con dados. La aplicación facilita el seguimiento de puntuaciones y rankings de los jugadores en tiempo real.
 
-Currently, two official plugins are available:
+## Características Principales
+- Gestión de jugadores (añadir/eliminar)
+- Sistema de puntuación por tiradas
+- Tabla de clasificación en tiempo real
+- Almacenamiento local de partidas
+- Interfaz intuitiva y responsive
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Requisitos Previos
+- Node.js (versión recomendada: 18 o superior)
+- npm (incluido con Node.js)
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+## Instalación
+1. Clona el repositorio:
+```bash
+git clone [URL del repositorio]
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+2. Instala las dependencias:
+```bash
+npm install
 ```
+
+## Scripts Disponibles
+- `npm run dev`: Inicia el servidor de desarrollo
+- `npm run build`: Genera la versión de producción
+- `npm run preview`: Previsualiza la versión de producción
+- `npm test`: Ejecuta los tests
+- `npm run coverage`: Ejecuta los tests con cobertura
+
+## Tecnologías Utilizadas
+- React 18.3
+- TypeScript
+- Vite
+- Vitest para testing
+- Testing Library
+
+## Estructura del Proyecto
+```
+src/
+  ├── components/      # Componentes React
+  ├── hooks/           # Hooks personalizados
+  ├── __tests__/       # Tests
+  ├── types.ts         # Definiciones de tipos
+  └── App.tsx          # Componente principal
+```
+
+## Testing
+El proyecto incluye tests unitarios y de integración utilizando Vitest y Testing Library. Los tests cubren:
+- Gestión de jugadores
+- Sistema de puntuación
+- Renderizado de componentes
+- Flujo completo de la aplicación
+
+## PWA
+La aplicación está configurada como Progressive Web App (PWA) con:
+- Iconos para diferentes dispositivos
+- Manifest para instalación
+- Tema personalizado
+
+## Licencia
+Este proyecto está bajo la Licencia MIT.
