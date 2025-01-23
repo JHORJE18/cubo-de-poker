@@ -10,6 +10,20 @@ Cubo de Poker es una aplicación web desarrollada con React y TypeScript que per
 - Almacenamiento local de partidas
 - Interfaz intuitiva y responsive
 
+## Screenshots
+
+### Pantalla de carga
+![Pantalla de carga](./screenshots/splash-screen.png)
+*Pantalla de carga mientras se carga la aplicación*
+
+### Pantalla Principal
+![Pantalla Principal](./screenshots/main-screen.png)
+*Vista principal de la aplicación con la gestión de jugadores y puntuaciones*
+
+### Pantalla de Juego
+![Pantalla de Juego](./screenshots/game-screen.png)
+*Vista de la partida de poker con los dados y las tiradas*
+
 ## Requisitos Previos
 - Node.js (versión recomendada: 18 o superior)
 - npm (incluido con Node.js)
