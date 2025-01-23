@@ -17,7 +17,7 @@ Cubo de Poker es una aplicación web desarrollada con React y TypeScript que per
 ## Instalación
 1. Clona el repositorio:
 ```bash
-git clone [URL del repositorio]
+git clone https://github.com/JHORJE18/cubo-de-poker
 ```
 
 2. Instala las dependencias:
