@@ -1,6 +1,7 @@
 import { render, screen, within } from '@testing-library/react';
 import RankingSection from '../components/RankingSection';
 import { Jugador, Tirada } from '../types';
+import { vi } from "vitest";
 
 describe('RankingSection Component', () => {
     const mockPlayers = [
