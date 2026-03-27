@@ -8,7 +8,13 @@ const mockRemovePlayer = vi.fn();
 
 describe("PlayerSection", () => {
 
-    test("Renderiza correctamente el título y controles iniciales", () => {
+    beforeEach(() => {
+        mockSetCurrentPlayer.mockClear();
+        mockAddPlayer.mockClear();
+        mockRemovePlayer.mockClear();
+    });
+
+    test("Renderiza correctamente el titulo y controles iniciales", () => {
         render(
             <PlayerSection
                 jugadores={[]}
@@ -19,9 +25,9 @@ describe("PlayerSection", () => {
             />
         );
 
-        expect(screen.getByText(/Gestión de Jugadores/i)).toBeInTheDocument();
+        expect(screen.getByText(/Gesti\u00f3n de Jugadores/i)).toBeInTheDocument();
         expect(screen.getByPlaceholderText(/Nuevo jugador/i)).toBeInTheDocument();
-        expect(screen.getByRole("button", { name: /añadir jugador/i })).toBeDisabled();
+        expect(screen.getByRole("button", { name: /a\u00f1adir jugador/i })).toBeDisabled();
         expect(screen.getByRole("button", { name: /eliminar jugador/i })).toBeDisabled();
     });
 
@@ -37,14 +43,11 @@ describe("PlayerSection", () => {
         );
 
         const input = screen.getByPlaceholderText(/Nuevo jugador/i) as HTMLInputElement;
-        const addButton = screen.getByRole("button", { name: /añadir jugador/i });
+        const addButton = screen.getByRole("button", { name: /a\u00f1adir jugador/i });
 
-        // Simula escribir en el input
         fireEvent.change(input, { target: { value: "Jugador 1" } });
-        // Verifica que el botón se habilite
         expect(addButton).not.toBeDisabled();
 
-        // Simula clic en el botón de añadir jugador
         addButton.click();
         expect(mockAddPlayer).toHaveBeenCalledWith("Jugador 1");
     });
@@ -91,7 +94,7 @@ describe("PlayerSection", () => {
         expect(mockRemovePlayer).toHaveBeenCalledWith("Jugador 1");
     });
 
-    test("Deshabilitar el botón “Añadir jugador” si el input está vacío", () => {
+    test("Deshabilitar el boton Anadir jugador si el input esta vacio", () => {
         render(
             <PlayerSection
                 jugadores={[]}
@@ -102,8 +105,81 @@ describe("PlayerSection", () => {
             />
         );
 
-        const addButton = screen.getByRole("button", { name: /añadir jugador/i });
+        const addButton = screen.getByRole("button", { name: /a\u00f1adir jugador/i });
         expect(addButton).toBeDisabled();
+    });
+
+    test("Deshabilitar el boton Anadir jugador si el input contiene solo espacios", () => {
+        render(
+            <PlayerSection
+                jugadores={[]}
+                currentPlayer={null}
+                setCurrentPlayer={mockSetCurrentPlayer}
+                addPlayer={mockAddPlayer}
+                removePlayer={mockRemovePlayer}
+            />
+        );
+
+        const input = screen.getByPlaceholderText(/Nuevo jugador/i);
+        const addButton = screen.getByRole("button", { name: /a\u00f1adir jugador/i });
+
+        fireEvent.change(input, { target: { value: "   " } });
+        expect(addButton).toBeDisabled();
+    });
+
+    test("El input se limpia despues de anadir un jugador", () => {
+        render(
+            <PlayerSection
+                jugadores={[]}
+                currentPlayer={null}
+                setCurrentPlayer={mockSetCurrentPlayer}
+                addPlayer={mockAddPlayer}
+                removePlayer={mockRemovePlayer}
+            />
+        );
+
+        const input = screen.getByPlaceholderText(/Nuevo jugador/i) as HTMLInputElement;
+        const addButton = screen.getByRole("button", { name: /a\u00f1adir jugador/i });
+
+        fireEvent.change(input, { target: { value: "Jugador 1" } });
+        fireEvent.click(addButton);
+
+        expect(input.value).toBe("");
+    });
+
+    test("Presionar Enter llama a addPlayer con el nombre del input", () => {
+        render(
+            <PlayerSection
+                jugadores={[]}
+                currentPlayer={null}
+                setCurrentPlayer={mockSetCurrentPlayer}
+                addPlayer={mockAddPlayer}
+                removePlayer={mockRemovePlayer}
+            />
+        );
+
+        const input = screen.getByPlaceholderText(/Nuevo jugador/i);
+        fireEvent.change(input, { target: { value: "Jugador Enter" } });
+        fireEvent.keyDown(input, { key: "Enter" });
+
+        expect(mockAddPlayer).toHaveBeenCalledWith("Jugador Enter");
+    });
+
+    test("Presionar Enter no llama a addPlayer si el input esta vacio", () => {
+        render(
+            <PlayerSection
+                jugadores={[]}
+                currentPlayer={null}
+                setCurrentPlayer={mockSetCurrentPlayer}
+                addPlayer={mockAddPlayer}
+                removePlayer={mockRemovePlayer}
+            />
+        );
+
+        const input = screen.getByPlaceholderText(/Nuevo jugador/i);
+        fireEvent.keyDown(input, { key: "Enter" });
+
+        expect(mockAddPlayer).not.toHaveBeenCalled();
     });
 
 });
