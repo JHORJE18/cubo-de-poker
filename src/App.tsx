@@ -33,7 +33,9 @@ const App: React.FC = () => {
       <div className="container">
         <header className="app-header">
           <h1 className="main-title">Cubo de Poker 🎲</h1>
-          <ThemeSelector />
+          <div className="header-actions">
+            <ThemeSelector />
+          </div>
         </header>
         <PlayerSection
           jugadores={jugadores}
