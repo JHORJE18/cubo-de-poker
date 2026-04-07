@@ -1,0 +1,30 @@
+.container {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.themeBtn {
+  font-family: var(--font-pixel), monospace;
+  font-size: 0.6rem;
+  padding: 6px 12px;
+  border: 1px solid var(--text-color);
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  text-transform: uppercase;
+}
+
+.themeBtn:hover {
+  background-color: var(--text-color);
+  color: var(--bg-color);
+}
+
+.active {
+  background-color: var(--accent-color);
+  color: var(--bg-color);
+  border-color: var(--accent-color);
+  box-shadow: 0 0 8px var(--accent-color);
+}

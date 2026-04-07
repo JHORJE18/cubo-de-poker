@@ -14,6 +14,7 @@ describe('useScoreManagement', () => {
     let setCurrentPlayer: ReturnType<typeof vi.fn>;
 
     beforeEach(() => {
+        vi.useFakeTimers();
         jugadores = makeJugadores();
         setJugadores = vi.fn();
         setCurrentPlayer = vi.fn();
@@ -21,6 +22,7 @@ describe('useScoreManagement', () => {
     });
 
     afterEach(() => {
+        vi.useRealTimers();
         vi.restoreAllMocks();
     });
 
@@ -52,11 +54,19 @@ describe('useScoreManagement', () => {
         expect(updated[1].tiradas[1].k).toBe(2); // Bob sin cambios
     });
 
-    it('guarda los datos en localStorage tras actualizar', () => {
+    it('guarda los datos en localStorage tras actualizar (con debounce)', () => {
         const { result } = renderScoreHook(jugadores[0]);
 
         act(() => {
             result.current.updateScore('Alice', 0, 'k', 3);
+        });
+
+        // Antes del debounce, no deberia estar guardado
+        expect(localStorage.getItem('cuboDePokerPartida')).toBeNull();
+
+        // Avanzar el timer del debounce
+        act(() => {
+            vi.advanceTimersByTime(300);
         });
 
         const stored = localStorage.getItem('cuboDePokerPartida');

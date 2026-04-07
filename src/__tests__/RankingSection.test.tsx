@@ -66,7 +66,7 @@ describe('RankingSection Component', () => {
         expect(mockSetCurrentPlayer.mock.calls[0][0].name).toBe('Jugador 1');
     });
 
-    it('aplica la clase selected-row a la fila del jugador activo', () => {
+    it('aplica una clase de estilo a la fila del jugador activo', () => {
         render(
             <RankingSection
                 jugadores={mockPlayers}
@@ -77,11 +77,11 @@ describe('RankingSection Component', () => {
 
         const rows = screen.getAllByRole('row');
         // Jugador 1 es el primero en el ranking, por lo que está en rows[1]
-        expect(rows[1]).toHaveClass('selected-row');
-        expect(rows[2]).not.toHaveClass('selected-row');
+        expect(rows[1].className).toMatch(/selectedRow/);
+        expect(rows[2].className).not.toMatch(/selectedRow/);
     });
 
-    it('no aplica selected-row a ninguna fila cuando currentPlayer es null', () => {
+    it('no aplica clase de seleccion a ninguna fila cuando currentPlayer es null', () => {
         render(
             <RankingSection
                 jugadores={mockPlayers}
@@ -92,7 +92,7 @@ describe('RankingSection Component', () => {
 
         const rows = screen.getAllByRole('row');
         rows.slice(1).forEach(row => {
-            expect(row).not.toHaveClass('selected-row');
+            expect(row.className).not.toMatch(/selectedRow/);
         });
     });
 });

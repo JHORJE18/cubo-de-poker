@@ -1,0 +1,56 @@
+.playerControls {
+  margin-bottom: 10px;
+}
+
+.playerSelect {
+  background-color: var(--select-bg, #1c1c1c);
+  color: var(--text-color);
+  font-family: 'Courier New', monospace;
+  font-size: 1.2rem;
+  padding: 10px;
+  border: 2px solid var(--text-color);
+  border-radius: 5px;
+  width: 100%;
+  text-align: center;
+  appearance: none;
+  outline: none;
+}
+
+.playerSelect option {
+  text-align: center;
+}
+
+.playerButtons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.playerButtons input {
+  flex: 1;
+  padding: 10px;
+  font-size: 1rem;
+  border: 2px solid var(--border-color, var(--neutral-color));
+  border-radius: 5px;
+  background-color: var(--input-bg, var(--bg-color));
+  color: var(--text-color);
+  outline: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.playerButtons input:focus {
+  border-color: var(--accent-color);
+  box-shadow: 0 0 5px var(--accent-color);
+}
+
+@media (max-width: 768px) {
+  .playerButtons {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .playerButtons input {
+    width: 100%;
+  }
+}

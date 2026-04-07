@@ -6,10 +6,11 @@ export const usePlayerManagement = () => {
   const [currentPlayer, setCurrentPlayer] = useState<Jugador | null>(null);
 
   const addPlayer = (name: string) => {
-    const normalizedName = name.trim().charAt(0).toUpperCase() + name.trim().slice(1).toLowerCase();
+    const trimmed = name.trim().slice(0, 20);
+    const normalizedName = trimmed.charAt(0).toUpperCase() + trimmed.slice(1).toLowerCase();
     if (!jugadores.find((player) => player.name.toLowerCase() === normalizedName.toLowerCase())) {
       setJugadores([...jugadores, new Jugador(normalizedName)]);
-      currentPlayer === null && setCurrentPlayer(new Jugador(normalizedName));
+      if (currentPlayer === null) setCurrentPlayer(new Jugador(normalizedName));
     } else {
       alert("Ya existe un jugador con ese nombre.");
     }

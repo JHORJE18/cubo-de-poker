@@ -1,11 +1,18 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import App from '../App';
+import { ThemeProvider } from '../themes/ThemeContext';
+
+const renderApp = () => render(
+    <ThemeProvider>
+        <App />
+    </ThemeProvider>
+);
 
 describe('Juego completo', () => {
 
     beforeEach(async () => {
-        render(<App />);
+        renderApp();
 
         // Esperar a que el SplashScreen desaparezca
         await waitFor(() => {

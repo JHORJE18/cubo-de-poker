@@ -11,4 +11,4 @@ const SplashScreen: React.FC = () => {
     );
 };
 
-export default SplashScreen;
+export default React.memo(SplashScreen);
