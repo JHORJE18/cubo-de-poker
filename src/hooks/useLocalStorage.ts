@@ -8,13 +8,18 @@ export const useLocalStorage = (
   useEffect(() => {
     const savedData = localStorage.getItem("cuboDePokerPartida");
     if (savedData) {
-      const parsedData: Jugador[] = JSON.parse(savedData).map((player: Jugador) => {
-        return new Jugador(
-          player.name,
-          player.tiradas.map((tirada) => new Tirada(tirada))
-        );
-      });
-      setJugadores(parsedData);
+      try {
+        const parsedData: Jugador[] = JSON.parse(savedData).map((player: Jugador) => {
+          return new Jugador(
+            player.name,
+            player.tiradas.map((tirada) => new Tirada(tirada))
+          );
+        });
+        setJugadores(parsedData);
+      } catch {
+        console.error("Datos corruptos en localStorage, limpiando...");
+        localStorage.removeItem("cuboDePokerPartida");
+      }
     }
 
     const timer = setTimeout(() => {

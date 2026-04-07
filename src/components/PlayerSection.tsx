@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Jugador } from "../types";
+import styles from "./PlayerSection.module.css";
 
 interface PlayerSectionProps {
     jugadores: Jugador[];
@@ -32,9 +33,9 @@ const PlayerSection: React.FC<PlayerSectionProps> = ({
     return (
         <section>
             <h2>Gestión de Jugadores</h2>
-            <div className="player-controls">
+            <div className={styles.playerControls}>
                 <select
-                    id="player-select"
+                    className={styles.playerSelect}
                     value={currentPlayer?.name || ""}
                     onChange={(e) =>
                         setCurrentPlayer(
@@ -52,7 +53,7 @@ const PlayerSection: React.FC<PlayerSectionProps> = ({
                     ))}
                 </select>
             </div>
-            <div className="player-buttons">
+            <div className={styles.playerButtons}>
                 <input
                     type="text"
                     value={newPlayer}

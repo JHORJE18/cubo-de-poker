@@ -6,6 +6,12 @@
   --danger-color: #ff3333;
   --neutral-color: #004d00;
   --font-pixel: 'Press Start 2P', monospace;
+  --input-bg: #001a00;
+  --border-color: #004d00;
+  --hover-bg: #00cc00;
+  --table-header-bg: #004d00;
+  --select-bg: #1c1c1c;
+  --disabled-text: #6c757d;
 }
 
 body {
@@ -17,11 +23,11 @@ body {
   overflow-x: hidden;
 }
 
-/* Estilo general */
-.main-title {
-  text-align: center;
-  font-size: 2rem;
-  margin: 10px 0;
+/* Contenido principal */
+.container {
+  max-width: 900px;
+  margin: auto;
+  padding: 20px;
 }
 
 /* Cabecera con fondo */
@@ -34,7 +40,7 @@ body {
   position: relative;
 }
 
-/* Título principal con efecto neón */
+/* Titulo principal con efecto neon */
 .main-title {
   font-size: 3rem;
   color: var(--text-color);
@@ -47,11 +53,11 @@ body {
   animation: neonPulse 1.5s infinite ease-in-out;
   font-family: var(--font-pixel);
   margin: 0;
+  text-align: center;
 }
 
-/* Animación de pulso */
+/* Animacion de pulso */
 @keyframes neonPulse {
-
   0%,
   100% {
     text-shadow:
@@ -72,19 +78,7 @@ body {
   }
 }
 
-/* Efecto de Neón */
-.neon-header {
-  text-shadow: 0 0 5px var(--text-color), 0 0 10px var(--text-color),
-    0 0 20px var(--accent-color), 0 0 30px var(--accent-color),
-    0 0 40px var(--accent-color), 0 0 50px var(--accent-color);
-}
-
-.neon-header .main-title {
-  animation: glow 2s infinite ease-in-out;
-}
-
 @keyframes glow {
-
   0%,
   100% {
     text-shadow: 0 0 5px var(--text-color), 0 0 10px var(--text-color),
@@ -98,6 +92,20 @@ body {
   }
 }
 
+@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  50% { transform: translateX(5px); }
+  75% { transform: translateX(-5px); }
+  100% { transform: translateX(0); }
+}
+
+h2,
+h3 {
+  font-size: 1.5rem;
+  text-align: center;
+}
+
 /* Estilo de los botones generales */
 button {
   font-family: var(--font-pixel), monospace;
@@ -108,21 +116,17 @@ button {
   color: var(--text-color);
   text-transform: uppercase;
   text-align: center;
-  border-radius: 0;
-  /* Sin bordes redondeados para un look retro */
+  border-radius: 5px;
   box-shadow: 0 0 10px var(--accent-color);
-  /* Resplandor */
   transition: all 0.2s ease-in-out;
   cursor: pointer;
 }
 
-/* Efecto hover para los botones */
 button:hover {
   background-color: var(--text-color);
   color: var(--bg-color);
   border-color: var(--accent-color);
   box-shadow: 0 0 20px var(--accent-color);
-  /* Aumenta el resplandor */
 }
 
 /* Botones de peligro */
@@ -138,36 +142,6 @@ button:hover {
   box-shadow: 0 0 20px var(--danger-color);
 }
 
-.table-actions {
-  display: flex;
-  justify-content: center;
-  /* Centra el botón horizontalmente */
-  margin-top: 30px;
-  /* Separa el botón de los elementos superiores */
-}
-
-.btn-destroy {
-  margin: 0 auto;
-  /* Centra el botón */
-  padding: 15px 30px;
-  /* Ajusta el tamaño del botón */
-  font-size: 1.2rem;
-  /* Hace el texto más grande */
-  border: 2px solid var(--danger-color);
-  background-color: var(--bg-color);
-  color: var(--danger-color);
-  box-shadow: 0 0 15px var(--danger-color);
-  /* Resplandor más notable */
-  transition: all 0.3s ease-in-out;
-}
-
-.btn-destroy:hover {
-  background-color: var(--danger-color);
-  color: var(--bg-color);
-  box-shadow: 0 0 25px var(--danger-color);
-  /* Aumenta el resplandor */
-}
-
 /* Botones primarios */
 .btn-primary {
   border-color: var(--accent-color);
@@ -181,38 +155,30 @@ button:hover {
   box-shadow: 0 0 20px var(--accent-color);
 }
 
-/* Botones primarios deshabilitados */
+/* Botones deshabilitados */
 .btn-primary:disabled,
 .btn-danger:disabled {
   background-color: var(--neutral-color);
-  /* Fondo neutral */
-  color: #6c757d;
-  /* Texto gris */
+  color: var(--disabled-text, #6c757d);
   border: 2px solid var(--neutral-color);
-  /* Borde neutral */
   cursor: not-allowed;
-  /* Cursor de no permitido */
   opacity: 0.65;
-  /* Transparencia para resaltar desactivación */
 }
 
-/* Desactivar el efecto hover si está deshabilitado */
 .btn-primary:disabled:hover,
-btn-danger:disabled:hover {
+.btn-danger:disabled:hover {
   background-color: var(--neutral-color);
-  color: #6c757d;
+  color: var(--disabled-text, #6c757d);
   box-shadow: none;
-  /* Sin resplandor */
 }
 
-/* Contenedor del botón nuclear */
+/* Contenedor del boton nuclear */
 .btn-container {
   margin-top: 20px;
   text-align: center;
-  /* Centra el botón debajo de la tabla */
 }
 
-/* Estilo del botón nuclear */
+/* Estilo del boton nuclear */
 .btn-nuclear {
   font-family: var(--font-pixel), monospace;
   font-size: 1rem;
@@ -228,440 +194,13 @@ btn-danger:disabled:hover {
   transition: all 0.3s ease-in-out;
 }
 
-/* Hover y efecto de activación */
 .btn-nuclear:hover {
   color: var(--bg-color);
   background-color: var(--danger-color);
-  box-shadow: 0 0 20px var(--danger-color-hover), 0 0 40px var(--danger-color-hover);
+  box-shadow: 0 0 20px var(--danger-color), 0 0 40px var(--danger-color);
   transform: scale(1.1);
-  /* Efecto de agrandamiento */
 }
 
-/* Animación de vibración */
 .btn-nuclear:active {
   animation: shake 0.2s ease-in-out 2;
-}
-
-/* Efecto de vibración */
-@keyframes shake {
-  0% {
-    transform: translateX(0);
-  }
-
-  25% {
-    transform: translateX(-5px);
-  }
-
-  50% {
-    transform: translateX(5px);
-  }
-
-  75% {
-    transform: translateX(-5px);
-  }
-
-  100% {
-    transform: translateX(0);
-  }
-}
-
-h2,
-h3 {
-  font-size: 1.5rem;
-  text-align: center;
-}
-
-/* Menú superior */
-.menu {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px;
-  background-color: var(--neutral-color);
-}
-
-/* Contenedor de las rondas */
-.tiradas-container {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
-  /* Espaciado entre columnas */
-  align-items: center;
-}
-
-/* Cada ronda ocupa una columna */
-.ronda {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  /* Espaciado entre filas de inputs */
-  padding: 10px;
-  border: 1px solid var(--neutral-color);
-  border-radius: 5px;
-  background-color: var(--bg-color);
-}
-
-/* Inputs pequeños */
-.inputs {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  /* Tres columnas para los campos */
-  gap: 5px;
-}
-
-.inputs label {
-  font-size: 0.8rem;
-  text-align: center;
-  color: var(--text-color);
-}
-
-.inputs input {
-  width: 100%;
-  font-size: 0.9rem;
-  padding: 5px;
-  text-align: center;
-  border: 1px solid var(--neutral-color);
-  border-radius: 5px;
-  background-color: var(--bg-color);
-  color: var(--text-color);
-}
-
-.inputs input:focus {
-  border-color: var(--accent-color);
-  outline: none;
-  box-shadow: 0 0 5px var(--accent-color);
-}
-
-/* Estilo para pantallas pequeñas */
-@media (max-width: 768px) {
-  .tiradas-container {
-    grid-template-columns: 1fr;
-    gap: 15px;
-  }
-
-  .inputs {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-/* Cada ronda ocupa la mitad del contenedor */
-.ronda {
-  flex: 1;
-  padding: 10px;
-  border-radius: 5px;
-  /* Bordes redondeados */
-}
-
-/* Contenedor del input y botones */
-.player-buttons {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  /* Espaciado entre input y botones */
-  margin-top: 10px;
-}
-
-/* Input ocupa el ancho disponible */
-.player-buttons input {
-  flex: 1;
-  padding: 10px;
-  font-size: 1rem;
-  border: 2px solid var(--neutral-color);
-  border-radius: 5px;
-  background-color: var(--bg-color);
-  color: var(--text-color);
-  outline: none;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-/* Efecto al enfocar */
-.player-buttons input:focus {
-  border-color: var(--accent-color);
-  box-shadow: 0 0 5px var(--accent-color);
-}
-
-/* Botones */
-.player-buttons .btn-primary,
-.player-buttons .btn-danger {
-  padding: 10px 20px;
-  font-size: 1rem;
-  border-radius: 5px;
-  cursor: pointer;
-  border: none;
-  color: white;
-  transition: background-color 0.3s ease;
-}
-
-/* Botón primario */
-.player-buttons .btn-primary {
-  background-color: var(--accent-color);
-}
-
-.player-buttons .btn-primary:hover {
-  background-color: var(--accent-color-hover);
-}
-
-/* Botón eliminar */
-.player-buttons .btn-danger {
-  background-color: var(--danger-color);
-}
-
-.player-buttons .btn-danger:hover {
-  background-color: var(--danger-color-hover);
-}
-
-/* Diseño responsive para móviles */
-@media (max-width: 768px) {
-  .player-buttons {
-    flex-direction: column;
-    /* Los botones se colocan debajo del input */
-    gap: 15px;
-    /* Espaciado entre elementos */
-  }
-
-  .player-buttons input {
-    width: 100%;
-    /* Ocupa todo el ancho disponible */
-  }
-
-  .player-buttons .btn-primary,
-  .player-buttons .btn-danger {
-    width: 100%;
-    /* Botones ocupan todo el ancho */
-  }
-}
-
-/* Estilo del input */
-.player-buttons input {
-  flex: 1;
-  /* Ocupa todo el ancho disponible */
-  padding: 10px;
-  /* Espaciado interno */
-  font-size: 1rem;
-  /* Tamaño del texto */
-  border: 2px solid var(--neutral-color);
-  /* Borde con color neutro */
-  border-radius: 5px;
-  /* Bordes redondeados */
-  background-color: var(--bg-color);
-  /* Fondo oscuro */
-  color: var(--text-color);
-  /* Texto del color principal */
-  outline: none;
-  /* Quita el borde azul al enfocar */
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-/* Efecto al enfocar */
-.player-buttons input:focus {
-  border-color: var(--accent-color);
-  /* Color de borde al enfocar */
-  box-shadow: 0 0 5px var(--accent-color);
-  /* Resplandor */
-}
-
-/* Contenedor para inputs y labels */
-.inputs {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  /* Tres columnas por fila */
-  gap: 15px;
-  /* Espaciado entre columnas y filas */
-}
-
-/* Alinear el label encima del input */
-.inputs label {
-  display: flex;
-  flex-direction: column;
-  /* Coloca el label encima del input */
-  font-size: 0.8rem;
-  /* Tamaño de texto más pequeño */
-  text-align: center;
-  /* Centra el texto del label */
-  color: var(--text-color);
-  gap: 5px;
-  /* Espaciado entre label e input */
-}
-
-/* Estilo de los inputs */
-.inputs input {
-  width: 100%;
-  height: 50px;
-  /* Mantiene el tamaño cuadrado */
-  font-size: 1rem;
-  /* Tamaño del texto */
-  text-align: center;
-  /* Centra el texto en el input */
-  border: 1px solid var(--neutral-color);
-  border-radius: 5px;
-  /* Opcional: Bordes redondeados */
-  background-color: var(--bg-color);
-  color: var(--text-color);
-  padding: 0;
-  /* Sin relleno interno para mantener el tamaño cuadrado */
-  box-sizing: border-box;
-  /* Asegura que el borde esté incluido en el tamaño */
-}
-
-/* Efecto al enfocar */
-.inputs input:focus {
-  border-color: var(--accent-color);
-  box-shadow: 0 0 5px var(--accent-color);
-  outline: none;
-}
-
-/* Contenido principal */
-.container {
-  max-width: 900px;
-  margin: auto;
-  padding: 20px;
-}
-
-.player-name {
-  font-size: 1.5rem;
-  text-align: center;
-  padding: 10px;
-  background-color: var(--accent-color);
-  border: 2px solid var(--neutral-color);
-}
-
-/* Contenedor de selección */
-.player-controls {
-  margin-bottom: 10px;
-  /* Espacio entre el selector y los botones */
-}
-
-/* Selector de jugador */
-#player-select {
-  background-color: #1c1c1c;
-  /* Fondo oscuro */
-  color: #00ff00;
-  /* Texto verde brillante */
-  font-family: 'Courier New', monospace;
-  /* Fuente retro */
-  font-size: 1.2rem;
-  /* Ajusta el tamaño del texto */
-  padding: 10px;
-  /* Espaciado interno */
-  border: 2px solid #00ff00;
-  /* Borde verde brillante */
-  border-radius: 5px;
-  /* Bordes redondeados */
-  width: 100%;
-  /* Ocupa todo el ancho disponible */
-  text-align: center;
-  /* Centra el texto del selector */
-  appearance: none;
-  /* Quita el estilo por defecto del navegador */
-  outline: none;
-  /* Quita el contorno al enfocar */
-}
-
-/* Ajuste adicional para centrar el texto en algunos navegadores */
-#player-select option {
-  text-align: center;
-}
-
-/* Botones debajo del selector */
-.player-buttons {
-  display: flex;
-  justify-content: center;
-  /* Centra los botones horizontalmente */
-  gap: 15px;
-  /* Espaciado entre los botones */
-}
-
-button {
-  padding: 10px 20px;
-  font-size: 1rem;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.inputs {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
-}
-
-.inputs input {
-  background-color: var(--bg-color);
-  border: 1px solid var(--neutral-color);
-  color: var(--text-color);
-  font-size: 1rem;
-  text-align: center;
-  padding: 10px;
-}
-
-/* Tabla */
-table {
-  width: 100%;
-  margin-top: 20px;
-  border-collapse: collapse;
-  border: 2px solid var(--neutral-color);
-  background-color: var(--bg-color);
-  color: var(--text-color);
-  font-family: var(--font-pixel);
-}
-
-/* Encabezado de la tabla */
-th {
-  background-color: var(--neutral-color);
-  color: var(--text-color);
-  padding: 10px;
-  text-align: center;
-  text-transform: uppercase;
-  border: 2px solid var(--accent-color);
-  font-size: 0.9rem;
-}
-
-/* Celdas de la tabla */
-td {
-  padding: 10px;
-  text-align: center;
-  border: 1px solid var(--neutral-color);
-  font-size: 1rem;
-}
-
-/* Resalto de filas al pasar el cursor */
-tbody tr:hover {
-  background-color: var(--accent-color);
-  color: var(--bg-color);
-  transform: scale(1.02);
-  transition: all 0.2s ease-in-out;
-  cursor: pointer;
-}
-
-/* Fila seleccionada */
-.selected-row {
-  background-color: var(--accent-color);
-  color: var(--bg-color);
-  box-shadow: 0 0 10px var(--accent-color);
-  transition: all 0.3s ease-in-out;
-}
-
-/* Responsive ajustes */
-@media (max-width: 768px) {
-
-  th:nth-child(3),
-  td:nth-child(3),
-  th:nth-child(4),
-  td:nth-child(4) {
-    display: none;
-    /* Oculta las rondas en móviles */
-  }
-}
-
-/* Bordes de la tabla */
-table th,
-table td {
-  border: 1px solid var(--accent-color);
-}
-
-/* Esquinas redondeadas opcionales */
-table {
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 0 10px var(--accent-color);
-  /* Resplandor general */
 }

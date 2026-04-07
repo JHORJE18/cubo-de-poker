@@ -1,5 +1,6 @@
 import React from "react";
 import { Jugador } from "../types";
+import styles from "./TiradasSection.module.css";
 
 interface TiradasSectionProps {
     currentPlayer: Jugador | null;
@@ -20,11 +21,12 @@ const TiradasSection: React.FC<TiradasSectionProps> = ({ currentPlayer, updateSc
     };
 
     const renderInputs = (round: number) => (
-        <div className="inputs">
+        <div className={styles.inputs}>
             <label>
                 As:
                 <input
                     type="number"
+                    min="0"
                     max="99"
                     value={currentPlayer.tiradas[round - 1]?.as || 0}
                     onChange={handleInputChange(round, "as")}
@@ -35,6 +37,7 @@ const TiradasSection: React.FC<TiradasSectionProps> = ({ currentPlayer, updateSc
                 K:
                 <input
                     type="number"
+                    min="0"
                     max="99"
                     value={currentPlayer.tiradas[round - 1]?.k || 0}
                     onChange={handleInputChange(round, "k")}
@@ -45,6 +48,7 @@ const TiradasSection: React.FC<TiradasSectionProps> = ({ currentPlayer, updateSc
                 Q:
                 <input
                     type="number"
+                    min="0"
                     max="99"
                     value={currentPlayer.tiradas[round - 1]?.q || 0}
                     onChange={handleInputChange(round, "q")}
@@ -55,6 +59,7 @@ const TiradasSection: React.FC<TiradasSectionProps> = ({ currentPlayer, updateSc
                 J:
                 <input
                     type="number"
+                    min="0"
                     max="99"
                     value={currentPlayer.tiradas[round - 1]?.j || 0}
                     onChange={handleInputChange(round, "j")}
@@ -65,6 +70,7 @@ const TiradasSection: React.FC<TiradasSectionProps> = ({ currentPlayer, updateSc
                 Rojas:
                 <input
                     type="number"
+                    min="0"
                     max="99"
                     value={currentPlayer.tiradas[round - 1]?.rojas || 0}
                     onChange={handleInputChange(round, "rojas")}
@@ -75,6 +81,7 @@ const TiradasSection: React.FC<TiradasSectionProps> = ({ currentPlayer, updateSc
                 Negras:
                 <input
                     type="number"
+                    min="0"
                     max="99"
                     value={currentPlayer.tiradas[round - 1]?.negras || 0}
                     onChange={handleInputChange(round, "negras")}
@@ -87,12 +94,12 @@ const TiradasSection: React.FC<TiradasSectionProps> = ({ currentPlayer, updateSc
     return (
         <section>
             <h2>Registro de Tiradas</h2>
-            <div className="tiradas-container">
-                <div className="ronda">
+            <div className={styles.tiradasContainer}>
+                <div className={styles.ronda}>
                     <h3>Ronda 1</h3>
                     {renderInputs(1)}
                 </div>
-                <div className="ronda">
+                <div className={styles.ronda}>
                     <h3>Ronda 2</h3>
                     {renderInputs(2)}
                 </div>

@@ -1,0 +1,61 @@
+.tiradasContainer {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  align-items: center;
+}
+
+.ronda {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px;
+  border: 1px solid var(--border-color, var(--neutral-color));
+  border-radius: 5px;
+  background-color: var(--bg-color);
+}
+
+.inputs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+}
+
+.inputs label {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.8rem;
+  text-align: center;
+  color: var(--text-color);
+  gap: 5px;
+}
+
+.inputs input {
+  width: 100%;
+  height: 50px;
+  font-size: 1rem;
+  text-align: center;
+  border: 1px solid var(--border-color, var(--neutral-color));
+  border-radius: 5px;
+  background-color: var(--input-bg, var(--bg-color));
+  color: var(--text-color);
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.inputs input:focus {
+  border-color: var(--accent-color);
+  box-shadow: 0 0 5px var(--accent-color);
+  outline: none;
+}
+
+@media (max-width: 768px) {
+  .tiradasContainer {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .inputs {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

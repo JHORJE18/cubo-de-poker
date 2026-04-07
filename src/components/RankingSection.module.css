@@ -1,0 +1,60 @@
+.rankingTable {
+  width: 100%;
+  margin-top: 20px;
+  border-collapse: collapse;
+  border: 2px solid var(--border-color, var(--neutral-color));
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: var(--font-pixel);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 0 10px var(--accent-color);
+}
+
+.rankingTable th {
+  background-color: var(--table-header-bg, var(--neutral-color));
+  color: var(--text-color);
+  padding: 10px;
+  text-align: center;
+  text-transform: uppercase;
+  border: 2px solid var(--accent-color);
+  font-size: 0.9rem;
+}
+
+.rankingTable td {
+  padding: 10px;
+  text-align: center;
+  border: 1px solid var(--accent-color);
+  font-size: 1rem;
+}
+
+.rankingTable tbody tr:hover {
+  background-color: var(--hover-bg, var(--accent-color));
+  color: var(--bg-color);
+  transform: scale(1.02);
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.selectedRow {
+  background-color: var(--accent-color);
+  color: var(--bg-color);
+  box-shadow: 0 0 10px var(--accent-color);
+  transition: all 0.3s ease-in-out;
+}
+
+.shareButtons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 15px;
+}
+
+@media (max-width: 768px) {
+  .rankingTable th:nth-child(3),
+  .rankingTable td:nth-child(3),
+  .rankingTable th:nth-child(4),
+  .rankingTable td:nth-child(4) {
+    display: none;
+  }
+}
